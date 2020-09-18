@@ -9,5 +9,4 @@ sql/config.json
     "password": "",
     "database": ""
 }  
-}
 ```
