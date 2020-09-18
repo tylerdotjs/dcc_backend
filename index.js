@@ -16,21 +16,22 @@ app.use(passport.session());
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        const user = userData.getUserByName(username)
-        console.log(user)
-        if (userData.checkPassword(user, password)){
-            done(null, user)
-        } else {
-            done(null)
-        }
+        userData.getUserByName(username, (user) => {
+            console.log(user)
+            if (userData.checkPassword(user, password)) {
+                done(null, user)
+            } else {
+                done(null)
+            }
+        })
     }
 ));
-passport.serializeUser(function(user, done) {
-  done(null, user);
+passport.serializeUser(function (user, done) {
+    done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function (user, done) {
+    done(null, user);
 });
 
 app.post('/login',
@@ -39,14 +40,18 @@ app.post('/login',
     function (req, res) {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
-        res.send(200)
-});
+        res.sendStatus(200)
+    });
 app.post('/join', (req, res) => {
-    userData.createUser(req.body.username, req.body.password, (message) => {
-        res.send(message)
-    })
+    console.log(req.body)
+    if (req.body.username && req.body.email && req.body.password) { // Checking if all values exsist
+        userData.createUser(req.body.username, req.body.email, req.body.password, (message) => {
+            res.sendStatus(message)
+        })
+    } else {
+        res.sendStatus(400)
+    }
 })
-
 app.listen(port, () => {
     console.log(`App listing at http://localhost:${port}`)
 })
