@@ -4,6 +4,7 @@ const session = require('express-session')
 const LocalStrategy = require('passport-local').Strategy
 const bodyParser = require('body-parser')
 const userData = require('./users/index')
+const meetings = require('./sql/meetings')
 
 const port = 8081
 const app = express()
@@ -17,7 +18,6 @@ app.use(passport.session());
 passport.use(new LocalStrategy(
     function (username, password, done) {
         userData.getUserByName(username, (user) => {
-            console.log(user)
             if (userData.checkPassword(user, password)) {
                 done(null, user)
             } else {
@@ -52,6 +52,12 @@ app.post('/join', (req, res) => {
         res.sendStatus(400)
     }
 })
+app.get('/meetings', (req, res) => {
+    meetings.getMeetings((resault) => {
+        res.send(resault)
+    })
+})
+
 app.listen(port, () => {
     console.log(`App listing at http://localhost:${port}`)
 })
