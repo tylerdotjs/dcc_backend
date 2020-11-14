@@ -1,9 +1,8 @@
-const { Mongoose } = require("mongoose");
-
 const mongoose = require('mongoose')
+const config = require('./config')
+
 const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }
-
-mongoose.connect('mongodb+srv://dev:HN9bOJptqAljADyb@website.gpnvo.mongodb.net/dev?retryWrites=true&w=majority', options)
+mongoose.connect(config.mongo, options)
