@@ -36,7 +36,7 @@ passport.useRole = function(_role)
 {
   return function (req, res, next){
     let role = _role
-    if (req.user === undefined) return res.redirect(config.frontendLocation + '/login');
+    if (req.user === undefined) return res.sendStatus(401);
     if (req.user.roles.includes(role)) {
       return next()
     }

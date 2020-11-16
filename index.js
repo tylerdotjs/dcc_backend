@@ -11,16 +11,21 @@ const MongoStore = require('connect-mongo')(session);
 require("./mongoose")
 const mongoose = require('mongoose')
 
-if(!config.frontendLocation) {
-    config.frontendLocation = '/#'
-}
-
-const cors = require('cors')
+const cors = require('cors' {})
 
 const port = 8080
 const app = express()
 
-app.use(cors({origin: config.frontendLocation, credentials: true}))
+app.use(cors({origin: function (origin, callback) {
+    // bypass the requests with no origin (like curl requests, mobile apps, etc )
+    if (!origin) return callback(null, true);
+ 
+    if (config.cors.indexOf(origin) === -1) {
+      var msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }, credentials: true}))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(session({
