@@ -7,7 +7,7 @@ const config = require('../config.js')
 
 const saltRounds = 12;
 
-app = express.Router()
+const app = express.Router()
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,12 +36,23 @@ app.post('/register', (req, res) => {
                 if (err) throw err;
                 dbModel.create({ username: b.username, email: b.email, hash: hash }, function (err) {
                     if (err) throw err;
+                    passport.authenticate('local')
                     return res.sendStatus(201)
                 })
             });
         }
     })
-
 });
+
+app.get('/user', passport.authenticate('session'), (req, res) => {
+    if(!req.user) return res.sendStatus(401)
+    var user = {
+        _id: req.user._id,
+        username: req.user.username,
+        roles: req.user.roles,
+        date: req.user.date
+    }
+    res.send(user)
+})
 
 module.exports = app;
