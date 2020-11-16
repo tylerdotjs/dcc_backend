@@ -11,7 +11,7 @@ const MongoStore = require('connect-mongo')(session);
 require("./mongoose")
 const mongoose = require('mongoose')
 
-const cors = require('cors' {})
+const cors = require('cors')
 
 const port = 8080
 const app = express()
