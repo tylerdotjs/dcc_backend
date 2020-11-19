@@ -4,6 +4,7 @@ sql/config.js
 ```js
 module.exports = {
     mongo: "[MongoDB Connection String]",
-    oigin: "[CORS origin]"
+    oigin: "[CORS origin]",
+    passportSecret: "[The secret for passport]"
 }  
 ```
