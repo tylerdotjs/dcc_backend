@@ -3,7 +3,6 @@ const passport = require('passport')
 const bcrypt = require('bcrypt')
 require('./passport.js')
 const dbModel = require('./dbModel')
-const config = require('../config.js')
 
 const saltRounds = 12;
 

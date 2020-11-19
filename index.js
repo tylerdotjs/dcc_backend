@@ -16,17 +16,26 @@ const cors = require('cors')
 const port = 8080
 const app = express()
 
-app.use(cors("*", credentials: true}))
+app.use(cors({
+        origin: config.origin,
+        methods: "GET, POST",
+        credentials: true
+    }))
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
 app.use(session({
     secret: config.passportSecret,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
+
 app.use("/", user)
 app.use("/events", events)
+
+app.get("/", (req, res) => {
+    res.send("Welcome to the SNEC API!")
+})
 
 app.listen(port, () => {
     console.log(`App listing at http://localhost:${port}`)

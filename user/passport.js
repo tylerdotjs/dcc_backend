@@ -1,10 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const bycrypt = require('bcrypt')
-// requires the model with Passport-Local Mongoose plugged in
-const db = require('mongoose')
 const dbModel = require('./dbModel')
-const config = require('../config')
 
 passport.use(new LocalStrategy(
   function (username, password, done) {

@@ -1,12 +1,9 @@
 # dcc_backend
 
 sql/config.json
-```json
-{
-    "host": "",
-    "port": ,
-    "user": "",
-    "password": "",
-    "database": ""
+```js
+module.exports = {
+    mongo: "[MongoDB Connection String]",
+    oigin: "[CORS origin]"
 }  
 ```
