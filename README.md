@@ -1,6 +1,6 @@
 # dcc_backend
 
-sql/config.json
+sql/config.js
 ```js
 module.exports = {
     mongo: "[MongoDB Connection String]",
