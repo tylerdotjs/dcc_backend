@@ -40,6 +40,7 @@ app.get('/', (req, res) => {
                             description: e.description,
                             date: e.date,
                             attending: e.attendees.includes(req.user._id),
+                            location: e.location,
                             peers: usersClean
                             
                         }
